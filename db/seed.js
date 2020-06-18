@@ -6,20 +6,21 @@ const numOfDataPoints = 10;
 
 var generateEntry = function(numOfVariations) {
 
+  var randomTitle = faker.commerce.productName();
   var variations = [];
 
   for (var i = 0; i < numOfVariations; i++) {
-    var randomTitle = faker.commerce.productName(); // Fender Stratocaster
+    var randomColor = faker.commerce.color(); // Fender Stratocaster
     var randomCost = faker.commerce.price(); // 492.00
     var randomImages = [
-      {src: faker.image.imageUrl()},
-      {src: faker.image.imageUrl()},
-      {src: faker.image.imageUrl()},
-      {src: faker.image.imageUrl()}
+      {src: faker.image.imageUrl(846, 1038)},
+      {src: faker.image.imageUrl(846, 1038)},
+      {src: faker.image.imageUrl(846, 1038)},
+      {src: faker.image.imageUrl(846, 1038)}
     ] // 4 random image urls
 
     var variation = {
-      title: randomTitle,
+      color: randomColor,
       cost: randomCost,
       images: randomImages
     }
@@ -27,6 +28,7 @@ var generateEntry = function(numOfVariations) {
   }
 
   var entry = {
+    title: randomTitle,
     variations : variations
   }
   return entry;

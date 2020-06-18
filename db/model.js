@@ -3,9 +3,10 @@ const db = require('./index.js');
 mongoose.Promise = global.Promise;
 
 const productSchema = new mongoose.Schema({
+  title: String,
   variations : [
     {
-      title: String,
+      color: String,
       images: [{src: String}],
       cost: Number
     }
