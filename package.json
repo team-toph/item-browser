@@ -1,11 +1,13 @@
 {
   "name": "john-service",
   "version": "0.0.1",
-  "description": "Item Image Browser & Style Selector",
+  "description": "GC clone item image browser & style selector service",
   "main": "server/index.js",
   "scripts": {
     "start": "nodemon ./server/index.js",
-    "build": "webpack -d --watch"
+    "build": "webpack -d --watch",
+    "test": "jest",
+    "db:seed": "node db/seed.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +31,8 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "faker": "^4.1.0",
+    "mongoose": "^4.13.20",
     "nodemon": "^2.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
