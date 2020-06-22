@@ -1,5 +1,6 @@
 import React from 'react';
 import ImageSlide from './ImageSlide.jsx';
+import Thumbnails from './Thumbnails.jsx';
 
 class Carousel extends React.Component {
   constructor(props) {
@@ -7,7 +8,7 @@ class Carousel extends React.Component {
 
     this.state = {
       zoomedIn: false,
-      backgroundPostion: 'center'
+      backgroundPostion: 'center',
     }
   }
 
@@ -43,10 +44,20 @@ class Carousel extends React.Component {
   render() {
 
     return(
-      <div>
-        <div className="carousel"></div>
-        <div><ImageSlide src={this.props.currentImageUrl} zoomedIn={this.state.zoomedIn} backgroundPosition={this.state.backgroundPostion} handleClick={this.onMainImageClick.bind(this)}/></div>
+      <div className="carousel">
+        <div><ImageSlide
+          src={this.props.currentImageUrl}
+          zoomedIn={this.state.zoomedIn}
+          backgroundPosition={this.state.backgroundPostion}
+          handleClick={this.onMainImageClick.bind(this)}/>
+        </div>
+        <div>
+          <Thumbnails
+          images={this.props.images}
+          handleClick={this.props.handleClick}/>
+        </div>
       </div>
+
     )
   }
 }

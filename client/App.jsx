@@ -9,13 +9,14 @@ class App extends React.Component {
       product: {},
       variations: [],
       currentVariantsImages: [],
+      imageIndex: 0,
       currentImageUrl: ''
     }
   }
 
   componentDidMount() {
     // Make a request for a user with a given ID
-    axios.get('api/products?id=5eec29ed009ae7f194ad98da')
+    axios.get('api/products?id=5ef13ad97b2c233b7ce05aa2')
     .then((response) => {
       // handle success
       // console.log(response.data);
@@ -23,12 +24,22 @@ class App extends React.Component {
         product: response.data,
         variations: response.data.variations,
         currentVariantsImages: response.data.variations[0].images,
-        currentImageUrl: response.data.variations[0].images[0].src
+        currentImageUrl: response.data.variations[0].images[this.state.imageIndex].src
       })
     })
     .catch(function (error) {
       // handle error
       console.log(error);
+    })
+  }
+
+  onThumbnailClick(e) {
+    e.preventDefault();
+    console.log(e.target.id);
+    const index = e.target.id;
+    this.setState({
+      imageIndex: index,
+      currentImageUrl: this.state.currentVariantsImages[index].src
     })
   }
 
@@ -47,7 +58,7 @@ class App extends React.Component {
           <p>{this.state.product.description}</p>
         </div>
         <div>
-          <Carousel images={this.state.currentVariantsImages} currentImageUrl={this.state.currentImageUrl}/>
+          <Carousel images={this.state.currentVariantsImages} currentImageUrl={this.state.currentImageUrl} handleClick={this.onThumbnailClick.bind(this)}/>
         </div>
       </div>
     )
