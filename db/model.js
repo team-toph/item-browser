@@ -4,6 +4,7 @@ mongoose.Promise = global.Promise;
 
 const productSchema = new mongoose.Schema({
   title: String,
+  description: String,
   variations : [
     {
       color: String,

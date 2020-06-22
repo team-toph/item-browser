@@ -7,6 +7,7 @@ const numOfDataPoints = 10;
 var generateEntry = function(numOfVariations) {
 
   var randomTitle = faker.commerce.productName();
+  var randomDescription = faker.lorem.paragraph();
   var variations = [];
 
   for (var i = 0; i < numOfVariations; i++) {
@@ -29,6 +30,7 @@ var generateEntry = function(numOfVariations) {
 
   var entry = {
     title: randomTitle,
+    description: randomDescription,
     variations : variations
   }
   return entry;
