@@ -1,16 +1,13 @@
 import React from 'react';
-import styled from 'styled-components'
-//transform: ${props => props.zoomedIn ? "scale(2)" : ""};
-//background-position: ${props => props.zoomedIn ? "100% 100%" : "50% 50%"};
-//background-position: ${props => props.backgroundPosition};
-// overflow: hidden;
-// position: relative;
+import styled from 'styled-components';
+
 const Image = styled.div`
-  transition: background-size 3s;
+
+  transition: background-position linear 0.5s, background-size linear 0.5s;
   width: 457px;
   height: 519px;
   background: ${props=> 'url(' + props.src + ')'};
-  background-size: ${props => props.zoomedIn ? "457" : "cover"};
+  background-size: ${props => props.zoomedIn ? "250%" : "100%"};
   background-position: ${props => props.backgroundPosition};
   cursor: ${props => props.zoomedIn ? "zoom-out" : "zoom-in"};
 `;
