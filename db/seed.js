@@ -8,6 +8,7 @@ var generateEntry = function(numOfVariations) {
 
   var randomTitle = faker.commerce.productName();
   var randomDescription = faker.lorem.paragraph();
+  var randomRating = Math.random() * 5;
   var variations = [];
   var imageCount = 1;
 
@@ -34,6 +35,7 @@ var generateEntry = function(numOfVariations) {
   var entry = {
     title: randomTitle,
     description: randomDescription,
+    rating: randomRating.toFixed(2),
     variations : variations
   }
   return entry;

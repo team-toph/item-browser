@@ -8,7 +8,7 @@ function Title(props) {
       <span>
         {'Item #: ' + props.product._id}
         <StarRatings
-          rating={4}
+          rating={props.rating}
           numberOfStars={5}
           starRatedColor="gold"
           starEmptyColor="lightgray"
