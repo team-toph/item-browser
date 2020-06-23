@@ -9,7 +9,7 @@ const Table = styled.table`
 const Thumb = styled.div`
   background-image: ${props => 'url(' + props.src +')'};
   background-size: cover;
-  border: ${props => props.isSelected ? "2px solid red" : "2px solid gray"};
+  border: ${props => props.isSelected ? "1px solid red" : "1px solid lightgray"};
   width: 58px;
   height: 58px;
 `;
