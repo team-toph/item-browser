@@ -58,7 +58,12 @@ class App extends React.Component {
           <p>{this.state.product.description}</p>
         </div>
         <div>
-          <Carousel images={this.state.currentVariantsImages} currentImageUrl={this.state.currentImageUrl} handleClick={this.onThumbnailClick.bind(this)}/>
+          <Carousel
+            images={this.state.currentVariantsImages}
+            currentImageUrl={this.state.currentImageUrl}
+            imageIndex={this.state.imageIndex}
+            handleClick={this.onThumbnailClick.bind(this)}
+          />
         </div>
       </div>
     )

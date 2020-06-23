@@ -54,6 +54,7 @@ class Carousel extends React.Component {
         <div>
           <Thumbnails
           images={this.props.images}
+          imageIndex={this.props.imageIndex}
           handleClick={this.props.handleClick}/>
         </div>
       </div>

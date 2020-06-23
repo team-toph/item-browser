@@ -5,9 +5,11 @@ const Table = styled.table`
   margin-left: 100px;
 `;
 
+
 const Thumb = styled.div`
   background-image: ${props => 'url(' + props.src +')'};
   background-size: cover;
+  border: ${props => props.isSelected ? "2px solid red" : "2px solid gray"};
   width: 58px;
   height: 58px;
 `;
@@ -18,9 +20,15 @@ class Thumbnails extends React.Component {
   }
 
   render() {
-    const thumbs = this.props.images.map((image, index) =>
-      <td key={image._id}> <Thumb src={image.src} onClick={this.props.handleClick} id={index}></Thumb></td>
-    );
+    const thumbs = this.props.images.map((image, index) => {
+      var isSelected;
+      if (this.props.imageIndex == index) {
+        isSelected = true;
+      };
+      return(
+        <td key={image._id}> <Thumb src={image.src} onClick={this.props.handleClick} id={index} isSelected={isSelected}></Thumb></td>
+      )
+    });
     return(
       <div className={"thumbnails"}>
         <Table>
