@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import Carousel from './Carousel.jsx';
+import Title from './Title.jsx';
+import StyleSelector from './StyleSelector.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -8,6 +10,7 @@ class App extends React.Component {
     this.state = {
       product: {},
       variations: [],
+      currentVariant: {},
       currentVariantsImages: [],
       imageIndex: 0,
       currentImageUrl: ''
@@ -23,6 +26,7 @@ class App extends React.Component {
       this.setState({
         product: response.data,
         variations: response.data.variations,
+        currentVariant: response.data.variations[0],
         currentVariantsImages: response.data.variations[0].images,
         currentImageUrl: response.data.variations[0].images[this.state.imageIndex].src
       })
@@ -44,26 +48,34 @@ class App extends React.Component {
   }
 
   render() {
-    // var imageUrl = '';
-    // if (this.state.variations[0]) {
-    //   var variant = this.state.variations[0];
-    //   imageUrl = variant.images[0].src;
-    // }
     return(
-      <div>
-        <div>
-          <h4>{this.state.product.title}</h4>
+      <div className={"wrapper"}>
+        <div className="title">
+          <Title
+            product={this.state.product}
+            currentVariant={this.state.currentVariant}
+          />
         </div>
-        <div>
-          <p>{this.state.product.description}</p>
-        </div>
-        <div>
+        <div className="one">
           <Carousel
             images={this.state.currentVariantsImages}
             currentImageUrl={this.state.currentImageUrl}
             imageIndex={this.state.imageIndex}
             handleClick={this.onThumbnailClick.bind(this)}
           />
+        </div>
+        <div className="two">
+          <div className="description">
+            <h5><b>Product Description</b></h5>
+            <p>{this.state.product.description}</p>
+          </div>
+          <div>
+          <h4>In Stock & Ready to Ship</h4>
+          <p>Most orders placed before noon ET ship same day (except weekends and holidays).</p>
+          </div>
+        </div>
+        <div className="three">
+
         </div>
       </div>
     )
