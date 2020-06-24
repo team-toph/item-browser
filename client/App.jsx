@@ -3,6 +3,7 @@ import axios from 'axios';
 import Carousel from './Carousel.jsx';
 import Title from './Title.jsx';
 import StyleSelector from './StyleSelector.jsx';
+import Cart from './Cart.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -20,7 +21,7 @@ class App extends React.Component {
 
   componentDidMount() {
     // Make a request for a user with a given ID
-    axios.get('api/products?id=5ef26d0dfd2e5f56d175134a')
+    axios.get('api/products?id=5ef2760055d4085a0be8980e')
     .then((response) => {
       // handle success
       // console.log(response.data);
@@ -76,6 +77,7 @@ class App extends React.Component {
           <Title
             product={this.state.product}
             currentVariant={this.state.currentVariant}
+            rating={this.state.product.rating}
           />
         </div>
         <div className="one">
@@ -103,7 +105,7 @@ class App extends React.Component {
           />
         </div>
         <div className="three">
-
+          <Cart cost={this.state.currentVariant.cost}/>
         </div>
       </div>
     )
