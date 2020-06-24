@@ -5,8 +5,8 @@ const port = 3000;
 
 app.use(express.static('dist'));
 
-app.get('/api/products:id', (req, res) => {
-  const id = req.params.id;
+app.get('/api/products', (req, res) => {
+  const id = req.query.id;
   Product.findById(id)
     .then((product) => {
       res.status(200).send(product);
