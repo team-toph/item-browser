@@ -1,8 +1,10 @@
 const express = require('express');
+const cors = require('cors')
 const app = express();
 const Product = require('../db/model.js')
 const port = 3000;
 
+app.use(cors());
 app.use(express.static('dist'));
 
 app.get('/api/products', (req, res) => {
@@ -12,5 +14,11 @@ app.get('/api/products', (req, res) => {
       res.status(200).send(product);
     });
 });
+let server;
+const start = () => (app.listen(port, () => console.log(`Listening at http://localhost:${port}`)))
+const close = server ? server.close : () => {};
 
-app.listen(port, () => console.log(`Listening at http://localhost:${port}`));
+module.exports = {
+  start,
+  close
+};
