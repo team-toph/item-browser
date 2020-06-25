@@ -4,7 +4,7 @@ const Product = require('./model.js');
 
 const numOfDataPoints = 10;
 
-var generateEntry = function(numOfVariations) {
+var generateEntry = function(numOfVariations, newId) {
 
   var randomTitle = faker.commerce.productName();
   var randomDescription = faker.lorem.paragraph();
@@ -33,6 +33,7 @@ var generateEntry = function(numOfVariations) {
   }
 
   var entry = {
+    id: newId,
     title: randomTitle,
     description: randomDescription,
     rating: randomRating.toFixed(2),
@@ -45,11 +46,13 @@ var seedDatabase = function() {
   var sampleData = [];
   for (var i = 0; i < numOfDataPoints; i++) {
     var numOfVariations = Math.ceil((Math.random() * 4));
-    sampleData.push(generateEntry(numOfVariations));
+    var id = i + 1;
+    sampleData.push(generateEntry(numOfVariations, id));
   }
 
   Product.create(sampleData)
-    .then(() => db.disconnect());
+    .then(() => db.disconnect())
+    .catch((error) => console.log(error));
 }
 
 seedDatabase();
