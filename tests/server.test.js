@@ -3,16 +3,17 @@ const axios = require('axios');
 
 const api = axios.create({ baseURL: 'http://localhost:3000'});
 
-beforeAll(() => {
-  server.start();
-});
 
 afterAll(() => {
-  server.close();
+  try {
+    server.close();
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 
- test('the server returns data that exists with status 200', done => {
+ test('the server returns data that exists with status 200', (done) => {
   function callback(response) {
     try {
       expect(response.status).toBe(200);

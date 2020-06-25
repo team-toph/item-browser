@@ -14,11 +14,7 @@ app.get('/api/products', (req, res) => {
       res.status(200).send(product);
     });
 });
-let server;
-const start = () => (app.listen(port, () => console.log(`Listening at http://localhost:${port}`)))
-const close = server ? server.close : () => {};
 
-module.exports = {
-  start,
-  close
-};
+var server = app.listen(port, () => {console.log(`Listening at http://localhost:${port}`)});
+
+module.exports = server;
