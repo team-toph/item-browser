@@ -11,18 +11,19 @@ h4{
 }
 .wrapper {
   display: grid;
-  grid-template-columns: 500px 600px 300px;
-  grid-gap: 10px;
+  grid-template-columns: 500px 40% 300px;
+  grid-gap: 15px;
   justify-content: center;
-  grid-auto-rows: minmax(100px, auto);
 }
 .title {
   grid-column: 1 / 4;
   grid-row: 1;
+  padding-left: 20px;
 }
 .one {
   grid-column: 1;
   grid-row: 2 / 5;
+  padding-left: 20px;
 }
 .two {
   grid-column: 2;
@@ -31,4 +32,16 @@ h4{
 .three {
   grid-column: 3;
   grid-row: 2 / 5;
+  padding-right: 20px;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
