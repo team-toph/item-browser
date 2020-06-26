@@ -1,6 +1,14 @@
 import React from 'react';
+import styled from 'styled-components';
+import { Lightbox } from "react-modal-image";
 import ImageSlide from './ImageSlide.jsx';
 import Thumbnails from './Thumbnails.jsx';
+import ImageButtons from './ImageButtons.jsx';
+
+
+const InlineDiv = styled.div`
+  display: inline-block
+`;
 
 class Carousel extends React.Component {
   constructor(props) {
@@ -9,6 +17,7 @@ class Carousel extends React.Component {
     this.state = {
       zoomedIn: false,
       backgroundPostion: 'center',
+      fullScreen: false
     }
   }
 
@@ -41,6 +50,32 @@ class Carousel extends React.Component {
     return xPercent + ' ' + yPercent;
   }
 
+  onFullScreenButtonClick(e) {
+    e.preventDefault();
+    this.setState({
+      fullScreen : true
+    })
+  }
+
+  onZoomInButtonClick(e) {
+    e.preventDefault();
+    this.setState({
+      zoomedIn : true
+    })
+  }
+  onZoomOutButtonClick(e) {
+    e.preventDefault();
+    this.setState({
+      zoomedIn : false
+    })
+  }
+
+  closeLightbox() {
+    this.setState({
+      fullScreen : false
+    })
+  }
+
   render() {
 
     return(
@@ -52,10 +87,32 @@ class Carousel extends React.Component {
           handleClick={this.onMainImageClick.bind(this)}/>
         </div>
         <div>
-          <Thumbnails
-          images={this.props.images}
-          imageIndex={this.props.imageIndex}
-          handleClick={this.props.handleClick}/>
+          <InlineDiv>
+            <ImageButtons
+              handleFullScreenClick={this.onFullScreenButtonClick.bind(this)}
+              handleZoomInClick={this.onZoomInButtonClick.bind(this)}
+              handleZoomOutClick={this.onZoomOutButtonClick.bind(this)}
+            />
+          </InlineDiv>
+          <InlineDiv>
+            <Thumbnails
+            images={this.props.images}
+            imageIndex={this.props.imageIndex}
+            handleClick={this.props.handleClick}/>
+          </InlineDiv>
+        </div>
+        <div>
+          {
+            this.state.fullScreen &&
+            <Lightbox
+              small={this.props.currentImageUrl}
+              large={this.props.currentImageUrl}
+              //alt="Hello World!"
+              hideDownload={true}
+              hideZoom={true}
+              onClose={this.closeLightbox.bind(this)}
+            />
+          }
         </div>
       </div>
 
