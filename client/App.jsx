@@ -21,23 +21,45 @@ class App extends React.Component {
 
   componentDidMount() {
     // Make a request for a user with a given ID
-    axios.get('api/products?id=5ef2760055d4085a0be8980e')
-    .then((response) => {
-      // handle success
-      // console.log(response.data);
-      this.setState({
-        product: response.data,
-        variations: response.data.variations,
-        currentVariant: response.data.variations[0],
-        variantIndex: 0,
-        currentVariantsImages: response.data.variations[0].images,
-        currentImageUrl: response.data.variations[0].images[this.state.imageIndex].src
+    const params = this.getUrlParams();
+    if (!params.id) {
+      alert('No product id is present in the url, add an id between 1 and 100 as a query to display a product. example: localhost:3000/?id=4');
+    } else {
+      const path = 'api/products?id=' + params.id
+      axios.get(path)
+      .then((response) => {
+        // handle success
+        //console.log(response.data[0]);
+        const data = response.data[0];
+        this.setState({
+          product: data,
+          variations: data.variations,
+          currentVariant: data.variations[0],
+          variantIndex: 0,
+          currentVariantsImages: data.variations[0].images,
+          currentImageUrl: data.variations[0].images[this.state.imageIndex].src
+        })
       })
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+    }
+  }
+
+  getUrlParams() {
+    const url = window.location.href;
+    console.log("The URL of this page is: " + url);
+    var params = {};
+    var parser = document.createElement('a');
+    parser.href = url;
+    var query = parser.search.substring(1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+      var pair = vars[i].split('=');
+      params[pair[0]] = decodeURIComponent(pair[1]);
+    }
+    return params;
   }
 
   onThumbnailClick(e) {

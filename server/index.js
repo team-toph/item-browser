@@ -9,7 +9,7 @@ app.use(express.static('dist'));
 
 app.get('/api/products', (req, res) => {
   const id = req.query.id;
-  Product.findById(id)
+  Product.find({id: id})
     .then((product) => {
       res.status(200).send(product);
     });
