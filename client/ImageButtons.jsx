@@ -41,7 +41,7 @@ function ImageButtons(props) {
         <ZoomOut onClick={props.handleZoomOutClick}></ZoomOut>
       </div>
       <div>
-        <Reset onClick={props.handleZoomOutClick}></Reset>
+        <Reset onClick={props.handleResetButtonClick}></Reset>
         <FullScreen onClick={props.handleFullScreenClick}></FullScreen>
       </div>
     </div>

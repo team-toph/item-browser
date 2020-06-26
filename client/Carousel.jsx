@@ -68,15 +68,33 @@ class Carousel extends React.Component {
   }
 
   onZoomInButtonClick(e) {
-    e.preventDefault();
+    var zoom;
+
+    if (this.state.zoomLevel === 0) {zoom = 1}
+    else if (this.state.zoomLevel === 1) {zoom = 2}
+    else {zoom = 2}
+
     this.setState({
-      zoomedIn : true
+      zoomLevel: zoom
     })
   }
   onZoomOutButtonClick(e) {
     e.preventDefault();
+    var zoom;
+
+    if (this.state.zoomLevel === 1) {zoom = 0}
+    else if (this.state.zoomLevel === 2) {zoom = 1}
+    else {zoom = 0}
+
     this.setState({
-      zoomedIn : false
+      zoomLevel: zoom
+    })
+  }
+
+  onResetButtonClick(e) {
+    e.preventDefault();
+    this.setState({
+      zoomLevel: 0
     })
   }
 
@@ -102,6 +120,8 @@ class Carousel extends React.Component {
               handleFullScreenClick={this.onFullScreenButtonClick.bind(this)}
               handleZoomInClick={this.onZoomInButtonClick.bind(this)}
               handleZoomOutClick={this.onZoomOutButtonClick.bind(this)}
+              handleResetButtonClick={this.onResetButtonClick.bind(this)}
+              zoomLevel={this.state.zoomLevel}
             />
           </InlineDiv>
           <InlineDiv>
