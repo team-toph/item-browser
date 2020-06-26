@@ -3,7 +3,10 @@ import styled from 'styled-components';
 
 const ZoomIn = styled.button`
   background-position: center;
-  background-image: url(/assets/whitePlus.png);
+  background-image: ${(props) =>
+    props.zoomLevel === 2 && "url(/assets/grayPlus.png)" ||
+    "url(/assets/whitePlus.png)"
+  };
   border: solid white;
   border-radius: 6px;
   padding: 14px;
@@ -11,7 +14,10 @@ const ZoomIn = styled.button`
 
 const ZoomOut = styled.button`
   background-position: center;
-  background-image: url(/assets/whiteMinus.png);
+  background-image: ${(props) =>
+    props.zoomLevel === 0 && "url(/assets/grayMinus.png)" ||
+    "url(/assets/whiteMinus.png)"
+  };
   border: solid white;
   border-radius: 6px;
   padding: 14px;
@@ -19,7 +25,10 @@ const ZoomOut = styled.button`
 
 const Reset = styled.button`
   background-position: center;
-  background-image: url(/assets/whiteReset.png);
+  background-image: ${(props) =>
+    props.zoomLevel === 0 && "url(/assets/grayReset.png)" ||
+    "url(/assets/whiteReset.png)"
+  };
   border: solid white;
   border-radius: 6px;
   padding: 14px;
@@ -37,11 +46,11 @@ function ImageButtons(props) {
   return (
     <div>
       <div>
-        <ZoomIn onClick={props.handleZoomInClick}></ZoomIn>
-        <ZoomOut onClick={props.handleZoomOutClick}></ZoomOut>
+        <ZoomIn onClick={props.handleZoomInClick} zoomLevel={props.zoomLevel}></ZoomIn>
+        <ZoomOut onClick={props.handleZoomOutClick} zoomLevel={props.zoomLevel}></ZoomOut>
       </div>
       <div>
-        <Reset onClick={props.handleResetButtonClick}></Reset>
+        <Reset onClick={props.handleResetButtonClick} zoomLevel={props.zoomLevel}></Reset>
         <FullScreen onClick={props.handleFullScreenClick}></FullScreen>
       </div>
     </div>
