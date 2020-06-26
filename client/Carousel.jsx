@@ -16,6 +16,7 @@ class Carousel extends React.Component {
 
     this.state = {
       zoomedIn: false,
+      zoomLevel: 0,
       backgroundPostion: 'center',
       fullScreen: false
     }
@@ -26,13 +27,22 @@ class Carousel extends React.Component {
 
     //toggle zoom state
     var zoom;
-    this.state.zoomedIn ? zoom = false : zoom = true;
+    //this.state.zoomedIn ? zoom = false : zoom = true;
+
+    if (this.state.zoomLevel === 0) {zoom = 1}
+    else if (this.state.zoomLevel === 1) {zoom = 2}
+    else {zoom = 0}
 
     var position;
-    zoom ? position = this.getCoordinates(e) : position = 'center';
-
+    if (zoom === 1 || zoom === 2) {
+      position = this.getCoordinates(e);
+    } else {
+      position = 'center'
+    }
+    //zoom ? position = this.getCoordinates(e) : position = 'center';
+    ////zoomedIn: zoom,
     this.setState({
-      zoomedIn: zoom,
+      zoomLevel: zoom,
       backgroundPostion: position
     })
   }
@@ -82,7 +92,7 @@ class Carousel extends React.Component {
       <div className="carousel">
         <div><ImageSlide
           src={this.props.currentImageUrl}
-          zoomedIn={this.state.zoomedIn}
+          zoomLevel={this.state.zoomLevel}
           backgroundPosition={this.state.backgroundPostion}
           handleClick={this.onMainImageClick.bind(this)}/>
         </div>
