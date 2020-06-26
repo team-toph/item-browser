@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Table = styled.table`
-  margin-left: 100px;
+  margin-top: 10px;
+  margin-left: 40px;
 `;
-
 
 const Thumb = styled.div`
   background-image: ${props => 'url(' + props.src +')'};
