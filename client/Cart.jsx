@@ -49,20 +49,26 @@ const Shipping = styled.div`
   margin-top: 6px;
 `;
 
+const CardContainer = styled.div`
+  display: inline-grid;
+  grid-column-template: 40px 250px;
+  grid-column-gap: 15px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+`;
+
 const FinancingBlurb = styled.span`
   font-size: 10px;
   font-weight: 500;
-  white-space: pre-line
+  grid-column: 2;
 `;
 
 const CardImageContainer = styled.div`
   background-position: center;
   background-image: url(/assets/gearCard.png);
-  float: left;
-  height: 33px;
-  text-indent: -9999px;
-  width: 44px;
-  margin: 2px 10px 0 0;
+  height: 30px;
+  width: 40px;
+  grid-column: 1;
 `
 
 
@@ -108,12 +114,12 @@ function Cart(props) {
           <Shipping>+ Free Shipping</Shipping>
         </Price>
         <div>
-          <span>
+          <CardContainer>
             <CardImageContainer/>
             <FinancingBlurb>
               Special 6-month financing^ + <u>$34{"\n"} back in rewards.</u> Valid through{"\n"} 12/31/2020. <u>Get Details</u>
             </FinancingBlurb>
-          </span>
+          </CardContainer>
         </div>
         <QuantityAndButtonContainer>
           <QuantitySelector/>
