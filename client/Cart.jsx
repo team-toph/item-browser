@@ -2,7 +2,29 @@ import React from 'react';
 import styled from 'styled-components';
 import QuantitySelector from './QuantitySelector.jsx';
 
-const CartBox = styled.div`
+
+const QuestionsContainer = styled.div`
+  border: 1px solid lightgray;
+  padding: 15px;
+  margin-bottom: 15px;
+  font-size: 12px;
+  text-align: center;
+`;
+
+const Questions = styled.h5`
+  font-size: 100%;
+  font-weight: 600;
+  margin: 5px;
+  padding: 0px;
+`;
+
+const Actions = styled.p`
+  margin: 0px;
+  padding: 0px;
+  text-align: center;
+`;
+
+const CartContainer = styled.div`
   background-color: whitesmoke;
   border: 1px solid lightgray;
   padding: 15px;
@@ -43,7 +65,17 @@ const CardImageContainer = styled.div`
   margin: 2px 10px 0 0;
 `
 
+
+const QuantityAndButtonContainer = styled.div`
+  display: inline-grid;
+  grid-template-columns: 60px 200px;
+  grid-column-gap: 2px;
+  margin-top: 5px;
+  align-content: center;
+`;
+
 const AddToCart = styled.button`
+  grid-column: 2;
   background: #cd2418;
   :hover {
     background: #c94739;
@@ -57,31 +89,38 @@ const AddToCart = styled.button`
   font-family: 'Montserrat', sans-serif;
   font-size: 18px;
   height: 42px;
-  width: 200px;
+  width: 190px;
   color: whitesmoke;
 `;
 
+
 function Cart(props) {
   return (
-    <CartBox>
-      <PriceLabel>Price:</PriceLabel>
-      <Price>
-        {'$' + props.cost}
-        <Shipping>+ Free Shipping</Shipping>
-      </Price>
-      <div>
-        <span>
-          <CardImageContainer/>
-          <FinancingBlurb>
-            Special 6-month financing^ + <u>$34{"\n"} back in rewards.</u> Valid through{"\n"} 12/31/2020. <u>Get Details</u>
-          </FinancingBlurb>
-        </span>
-      </div>
-      <div>
-        <QuantitySelector/>
-        <AddToCart>Add To Cart</AddToCart>
-      </div>
-    </CartBox>
+    <div>
+      <QuestionsContainer>
+        <Questions>Have Questions? 877-687-5403</Questions>
+        <Actions>Call our experts for product info and phone-only specials. Or click here to <u>chat now.</u></Actions>
+      </QuestionsContainer>
+      <CartContainer>
+        <PriceLabel>Price:</PriceLabel>
+        <Price>
+          {'$' + props.cost}
+          <Shipping>+ Free Shipping</Shipping>
+        </Price>
+        <div>
+          <span>
+            <CardImageContainer/>
+            <FinancingBlurb>
+              Special 6-month financing^ + <u>$34{"\n"} back in rewards.</u> Valid through{"\n"} 12/31/2020. <u>Get Details</u>
+            </FinancingBlurb>
+          </span>
+        </div>
+        <QuantityAndButtonContainer>
+          <QuantitySelector/>
+          <AddToCart>Add To Cart</AddToCart>
+        </QuantityAndButtonContainer>
+      </CartContainer>
+    </div>
   );
 }
 

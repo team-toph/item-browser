@@ -1,6 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const Form = styled.form`
+  grid-column: 1
+`;
+
+const FieldContainer = styled.div`
+  display: inline-block;
+`;
+
 const Input = styled.input`
   font-family: 'Montserrat', sans-serif;
   font-size: 13px;
@@ -20,7 +28,6 @@ const Input = styled.input`
 
 
 const UpArrow = styled.button`
-  //color: whitesmoke;
   width: 16px;
   height: 20px;
   background-position: center;
@@ -28,7 +35,6 @@ const UpArrow = styled.button`
 `;
 
 const DownArrow = styled.button`
-  color: whitesmoke;
   width: 16px;
   height: 20px;
   background-position: center;
@@ -84,20 +90,15 @@ class QuantitySelector extends React.Component {
 
   render() {
     return (
-      <div>
-        <form>
+      <Form>
+          <Input type="number" value={this.state.quantity} onChange={this.onFieldChange.bind(this)}/>
           <div>
-            <Input type="number" value={this.state.quantity} onChange={this.onFieldChange.bind(this)}/>
-            <div>
-              <UpArrow onClick={this.increase.bind(this)}></UpArrow>
-            </div>
-            <div>
-              <DownArrow onClick={this.decrease.bind(this)}></DownArrow>
-            </div>
-
+            <UpArrow onClick={this.increase.bind(this)}></UpArrow>
           </div>
-        </form>
-      </div>
+          <div>
+            <DownArrow onClick={this.decrease.bind(this)}></DownArrow>
+          </div>
+      </Form>
     );
   }
 }
