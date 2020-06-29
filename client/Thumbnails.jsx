@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Table = styled.table`
-  margin-top: 10px;
   margin-left: 40px;
 `;
 

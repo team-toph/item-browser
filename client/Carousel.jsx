@@ -10,6 +10,21 @@ const InlineDiv = styled.div`
   display: inline-block
 `;
 
+const BottomBarContainer = styled.div`
+  display: inline-grid;
+  grid-column-template: 50px 450px
+  grid-column-gap: 10px;
+  margin-top: 10px;
+`;
+
+const ButtonContainer = styled.div`
+  grid-column: 1;
+`;
+
+const ThumbnailContainer = styled.div`
+  grid-column: 2;
+`;
+
 class Carousel extends React.Component {
   constructor(props) {
     super(props);
@@ -114,8 +129,8 @@ class Carousel extends React.Component {
           backgroundPosition={this.state.backgroundPostion}
           handleClick={this.onMainImageClick.bind(this)}/>
         </div>
-        <div>
-          <InlineDiv>
+        <BottomBarContainer>
+          <ButtonContainer>
             <ImageButtons
               handleFullScreenClick={this.onFullScreenButtonClick.bind(this)}
               handleZoomInClick={this.onZoomInButtonClick.bind(this)}
@@ -123,14 +138,14 @@ class Carousel extends React.Component {
               handleResetButtonClick={this.onResetButtonClick.bind(this)}
               zoomLevel={this.state.zoomLevel}
             />
-          </InlineDiv>
-          <InlineDiv>
+          </ButtonContainer>
+          <ThumbnailContainer>
             <Thumbnails
             images={this.props.images}
             imageIndex={this.props.imageIndex}
             handleClick={this.props.handleClick}/>
-          </InlineDiv>
-        </div>
+          </ThumbnailContainer>
+        </BottomBarContainer>
         <div>
           {
             this.state.fullScreen &&
