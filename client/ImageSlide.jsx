@@ -7,9 +7,14 @@ const Image = styled.div`
   width: 457px;
   height: 519px;
   background: ${props=> 'url(' + props.src + ')'};
-  background-size: ${props => props.zoomedIn ? "250%" : "100%"};
+  background-size: ${(props) =>
+    props.zoomLevel === 1 && "250%" ||
+    props.zoomLevel === 2 && "300%" ||
+    "100%"};
   background-position: ${props => props.backgroundPosition};
-  cursor: ${props => props.zoomedIn ? "zoom-out" : "zoom-in"};
+  cursor: ${(props) =>
+    props.zoomLevel === 2 && "zoom-out" ||
+    "zoom-in"};
 `;
 
 class ImageSlide extends React.Component {
@@ -26,7 +31,7 @@ class ImageSlide extends React.Component {
         src={this.props.src}
         backgroundPosition={this.props.backgroundPosition}
         onClick={this.props.handleClick}
-        zoomedIn={this.props.zoomedIn}>
+        zoomLevel={this.props.zoomLevel}>
       </Image>
 
       </div>

@@ -10,12 +10,28 @@ const InlineDiv = styled.div`
   display: inline-block
 `;
 
+const BottomBarContainer = styled.div`
+  display: inline-grid;
+  grid-column-template: 50px 450px
+  grid-column-gap: 10px;
+  margin-top: 10px;
+`;
+
+const ButtonContainer = styled.div`
+  grid-column: 1;
+`;
+
+const ThumbnailContainer = styled.div`
+  grid-column: 2;
+`;
+
 class Carousel extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       zoomedIn: false,
+      zoomLevel: 0,
       backgroundPostion: 'center',
       fullScreen: false
     }
@@ -26,13 +42,22 @@ class Carousel extends React.Component {
 
     //toggle zoom state
     var zoom;
-    this.state.zoomedIn ? zoom = false : zoom = true;
+    //this.state.zoomedIn ? zoom = false : zoom = true;
+
+    if (this.state.zoomLevel === 0) {zoom = 1}
+    else if (this.state.zoomLevel === 1) {zoom = 2}
+    else {zoom = 0}
 
     var position;
-    zoom ? position = this.getCoordinates(e) : position = 'center';
-
+    if (zoom === 1 || zoom === 2) {
+      position = this.getCoordinates(e);
+    } else {
+      position = 'center'
+    }
+    //zoom ? position = this.getCoordinates(e) : position = 'center';
+    ////zoomedIn: zoom,
     this.setState({
-      zoomedIn: zoom,
+      zoomLevel: zoom,
       backgroundPostion: position
     })
   }
@@ -58,15 +83,33 @@ class Carousel extends React.Component {
   }
 
   onZoomInButtonClick(e) {
-    e.preventDefault();
+    var zoom;
+
+    if (this.state.zoomLevel === 0) {zoom = 1}
+    else if (this.state.zoomLevel === 1) {zoom = 2}
+    else {zoom = 2}
+
     this.setState({
-      zoomedIn : true
+      zoomLevel: zoom
     })
   }
   onZoomOutButtonClick(e) {
     e.preventDefault();
+    var zoom;
+
+    if (this.state.zoomLevel === 1) {zoom = 0}
+    else if (this.state.zoomLevel === 2) {zoom = 1}
+    else {zoom = 0}
+
     this.setState({
-      zoomedIn : false
+      zoomLevel: zoom
+    })
+  }
+
+  onResetButtonClick(e) {
+    e.preventDefault();
+    this.setState({
+      zoomLevel: 0
     })
   }
 
@@ -82,25 +125,27 @@ class Carousel extends React.Component {
       <div className="carousel">
         <div><ImageSlide
           src={this.props.currentImageUrl}
-          zoomedIn={this.state.zoomedIn}
+          zoomLevel={this.state.zoomLevel}
           backgroundPosition={this.state.backgroundPostion}
           handleClick={this.onMainImageClick.bind(this)}/>
         </div>
-        <div>
-          <InlineDiv>
+        <BottomBarContainer>
+          <ButtonContainer>
             <ImageButtons
               handleFullScreenClick={this.onFullScreenButtonClick.bind(this)}
               handleZoomInClick={this.onZoomInButtonClick.bind(this)}
               handleZoomOutClick={this.onZoomOutButtonClick.bind(this)}
+              handleResetButtonClick={this.onResetButtonClick.bind(this)}
+              zoomLevel={this.state.zoomLevel}
             />
-          </InlineDiv>
-          <InlineDiv>
+          </ButtonContainer>
+          <ThumbnailContainer>
             <Thumbnails
             images={this.props.images}
             imageIndex={this.props.imageIndex}
             handleClick={this.props.handleClick}/>
-          </InlineDiv>
-        </div>
+          </ThumbnailContainer>
+        </BottomBarContainer>
         <div>
           {
             this.state.fullScreen &&

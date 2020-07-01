@@ -1,11 +1,14 @@
 const express = require('express');
 const cors = require('cors')
+const morgan = require('morgan');
+const path = require('path');
 const app = express();
 const Product = require('../db/model.js')
-const port = 3000;
+const port = 3001;
 
 app.use(cors());
-app.use(express.static('dist'));
+app.use(morgan('dev'));
+app.use(express.static(path.join(__dirname, '/../dist')))
 
 app.get('/api/products', (req, res) => {
   const id = req.query.id;
