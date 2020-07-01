@@ -18,8 +18,16 @@ var generateEntry = function(numOfVariations, newId) {
     var numOfImages = Math.ceil((Math.random() * 5));
     var randomImages = [] // 4 random image urls
 
+    var createImage = function() {
+      var url = 'http://picsum.photos/seed/'
+      var urlend='/846/1038'
+      var randomNumber = Math.floor(Math.random() * 1000);
+      return url+randomNumber+urlend;
+    }
+
     for (var j = 0; j < numOfImages; j++) {
-      var source = "https://picsum.photos/846/1038?random=" + imageCount;
+      //var source = "https://picsum.photos/846/1038?random=" + imageCount;
+      var source = createImage();
       randomImages.push({src: source})
       imageCount++;
     }
