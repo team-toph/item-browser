@@ -1,13 +1,13 @@
-# Project Name
+# Image Browser and Product Information Service
 
-> Project description
+> This module features functionality for a musical instrument e-commerce store's primary product information.
 
 ## Related Projects
 
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
+  - https://github.com/Team-Katara/joel-service
+  - https://github.com/Team-Katara/shraya-service
+  - https://github.com/Team-Katara/kana-service
+  - https://github.com/Team-Katara/john-proxy
 
 ## Table of Contents
 
