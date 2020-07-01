@@ -61,7 +61,7 @@ class ImageBrowser extends React.Component {
     if (!params.id) {
       alert('No product id is present in the url, add an id between 1 and 100 as a query to display a product. example: localhost:3001/?id=4');
     } else {
-      const path = 'api/products?id=' + params.id
+      const path = 'http://localhost:3001/api/products?id=' + params.id
       axios.get(path)
       .then((response) => {
         // handle success
