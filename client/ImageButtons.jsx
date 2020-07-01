@@ -36,7 +36,7 @@ const Reset = styled.button`
 
 const FullScreen = styled.button`
   background-position: center;
-  background-image: url(/http://localhost:3001/assets/whiteFullScreen.png);
+  background-image: url(http://localhost:3001/assets/whiteFullScreen.png);
   border: solid white;
   border-radius: 6px;
   padding: 14px;
