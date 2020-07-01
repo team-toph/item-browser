@@ -2,6 +2,12 @@ import React from 'react';
 import StarRatings from 'react-star-ratings';
 import styled from 'styled-components';
 
+const Header = styled.h1`
+  font-family: 'Montserrat', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+`;
+
 const Text = styled.span`
   color: #333;
   :hover {
@@ -16,7 +22,7 @@ const ItemNum = styled.span`
 function Title(props) {
   return (
     <div>
-      <h1>{props.product.title + ' ' + props.currentVariant.color}</h1>
+      <Header>{props.product.title + ' ' + props.currentVariant.color}</Header>
       <ItemNum>
         {'Item #: ' + props.product._id}
         <span>

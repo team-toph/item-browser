@@ -1,11 +1,47 @@
 import React from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
+
 import Carousel from './Carousel.jsx';
 import Title from './Title.jsx';
 import StyleSelector from './StyleSelector.jsx';
 import Cart from './Cart.jsx';
 
-class App extends React.Component {
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: 500px 40% 300px;
+  grid-gap: 15px;
+  justify-content: center;
+`;
+
+const TitleContainer = styled.div`
+  grid-column: 1 / 4;
+  grid-row: 1;
+  padding-left: 20px;
+`;
+
+const One = styled.div`
+  grid-column: 1;
+  grid-row: 2 / 5;
+  padding-left: 20px;
+`;
+
+const Two = styled.div`
+  grid-column: 2;
+  grid-row: 2 / 5;
+`;
+
+const Three = styled.div`
+  grid-column: 3;
+  grid-row: 2 / 5;
+  padding-right: 20px;
+`;
+
+const Stock = styled.h4`
+  color: green;
+`;
+
+class ImageBrowser extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -23,7 +59,7 @@ class App extends React.Component {
     // Make a request for a user with a given ID
     const params = this.getUrlParams();
     if (!params.id) {
-      alert('No product id is present in the url, add an id between 1 and 100 as a query to display a product. example: localhost:3000/?id=4');
+      alert('No product id is present in the url, add an id between 1 and 100 as a query to display a product. example: localhost:3001/?id=4');
     } else {
       const path = 'api/products?id=' + params.id
       axios.get(path)
@@ -94,29 +130,29 @@ class App extends React.Component {
 
   render() {
     return(
-      <div className={"wrapper"}>
-        <div className="title">
+      <Wrapper>
+        <TitleContainer>
           <Title
             product={this.state.product}
             currentVariant={this.state.currentVariant}
             rating={this.state.product.rating}
           />
-        </div>
-        <div className="one">
+        </TitleContainer>
+        <One>
           <Carousel
             images={this.state.currentVariantsImages}
             currentImageUrl={this.state.currentImageUrl}
             imageIndex={this.state.imageIndex}
             handleClick={this.onThumbnailClick.bind(this)}
           />
-        </div>
-        <div className="two">
+        </One>
+        <Two>
           <div className="description">
             <h5><b>Product Description</b></h5>
             <p>{this.state.product.description}</p>
           </div>
           <div className="stockInfo">
-            <h4>In Stock & Ready to Ship</h4>
+            <Stock>In Stock & Ready to Ship</Stock>
             <p>Most orders placed before noon ET ship same day (except weekends and holidays).</p>
           </div>
           <StyleSelector
@@ -125,13 +161,13 @@ class App extends React.Component {
             variantIndex={this.state.variantIndex}
             handleClick={this.onStyleClick.bind(this)}
           />
-        </div>
-        <div className="three">
+        </Two>
+        <Three>
           <Cart cost={this.state.currentVariant.cost}/>
-        </div>
-      </div>
+        </Three>
+      </Wrapper>
     )
   }
 }
 
-export default App;
+export default ImageBrowser;

@@ -10,6 +10,16 @@ const FieldContainer = styled.div`
 `;
 
 const Input = styled.input`
+  /* REMOVE DEFAULT CONTROLS */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
   font-family: 'Montserrat', sans-serif;
   font-size: 13px;
   color: #676767;
