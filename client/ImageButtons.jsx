@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const ZoomIn = styled.button`
   background-position: center;
   background-image: ${(props) =>
-    props.zoomLevel === 2 && "url(/assets/grayPlus.png)" ||
+    props.zoomLevel === 2 && "url(http://localhost:3001/assets/grayPlus.png)" ||
     "url(/assets/whitePlus.png)"
   };
   border: solid white;
@@ -15,7 +15,7 @@ const ZoomIn = styled.button`
 const ZoomOut = styled.button`
   background-position: center;
   background-image: ${(props) =>
-    props.zoomLevel === 0 && "url(/assets/grayMinus.png)" ||
+    props.zoomLevel === 0 && "url(http://localhost:3001/assets/grayMinus.png)" ||
     "url(/assets/whiteMinus.png)"
   };
   border: solid white;
@@ -26,7 +26,7 @@ const ZoomOut = styled.button`
 const Reset = styled.button`
   background-position: center;
   background-image: ${(props) =>
-    props.zoomLevel === 0 && "url(/assets/grayReset.png)" ||
+    props.zoomLevel === 0 && "url(http://localhost:3001/assets/grayReset.png)" ||
     "url(/assets/whiteReset.png)"
   };
   border: solid white;
@@ -36,7 +36,7 @@ const Reset = styled.button`
 
 const FullScreen = styled.button`
   background-position: center;
-  background-image: url(/assets/whiteFullScreen.png);
+  background-image: url(/http://localhost:3001assets/whiteFullScreen.png);
   border: solid white;
   border-radius: 6px;
   padding: 14px;
