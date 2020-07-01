@@ -3,5 +3,5 @@ import ReactDOM from 'react-dom';
 import ImageBrowser from './App.jsx';
 
 ReactDOM.render(
-  <ImageBrowser />, document.getElementById('imageBrowser')
+  <ImageBrowser />, document.getElementById('ImageBrowser')
 );
