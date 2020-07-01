@@ -2,7 +2,7 @@ const faker = require('faker');
 const db = require('./index.js');
 const Product = require('./model.js');
 
-const numOfDataPoints = 10;
+const numOfDataPoints = 100;
 
 var generateEntry = function(numOfVariations, newId) {
 
