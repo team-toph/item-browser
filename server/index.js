@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const path = require('path');
 const bodyParser = require('body-parser')
 const app = express();
-const Product = require('../db/model.js')
+const Product = require('../cqlDB/model.js')
 const port = 3001;
 
 app.use(cors());
