@@ -8,7 +8,8 @@
     "build": "webpack -d --watch",
     "test": "jest --detectOpenHandles",
     "db:seed": "node db/seed.js",
-    "db:cql": "node cqlDB/seed.js"
+    "db:cql": "node cqlDB/seed.js",
+    "load": "node cqlDB/load.js"
   },
   "repository": {
     "type": "git",

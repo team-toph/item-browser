@@ -5,9 +5,10 @@ const faker = require('faker');
 const db = require('./index.js');
 const Product = require('./model.js');
 
-const numOfDataPoints = 100000;
+const numOfDataPoints = 1000;
 var filepath = "data.txt";
 var stream = fs.createWriteStream(filepath);
+var idCount = 0;
 
 var generateEntry = function(numOfVariations, newId) {
 
@@ -59,30 +60,39 @@ var createChunk = function(count) {
   var sampleData = [];
   for (var i = 0; i < count; i++) {
     var numOfVariations = Math.ceil((Math.random() * 4));
-    var id = i + 1;
+    idCount++;
+    var id = idCount;
     sampleData.push(generateEntry(numOfVariations, id));
   }
 
-  return JSON.stringify(sampleData);
+  return sampleData;
 }
 
 
-
-var fileContent = createChunk(numOfDataPoints);
-
 stream.once(filepath, (fd) => {
   stream.write(fd);
-  stream.write("Second line\n");
+  console.log(fd);
 
   // Important to close the stream when you're ready
   stream.end();
 });
 
-for (var i = 0; i<100; i++) {
-  fs.writeFile(filepath, fileContent, (err) => {
+var seed = () => {
+  var start = Date.now();
+  var fileContent = createChunk(numOfDataPoints);
+  for (var i = 1; i<10; i++) {
+    fileContent.push(createChunk(numOfDataPoints));
+
+  }
+  var fileJSON = JSON.stringify(fileContent);
+  fs.writeFile(filepath, fileJSON, (err) => {
     if (err) throw err;
   })
+  stream.end();
+  console.log('Time to write: ', Date.now() - start);
 }
 
+
+seed();
 
 console.log("The file was succesfully saved!");
