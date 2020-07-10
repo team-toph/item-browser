@@ -5,18 +5,18 @@ const faker = require('faker');
 const db = require('./index.js');
 const Product = require('./model.js');
 
-const numOfDataPoints = 1000;
 var filepath = "data.txt";
-var stream = fs.createWriteStream(filepath);
-var idCount = 0;
+// flag 'a': Open file for appending. The file is created if it does not exist.
+var stream = fs.createWriteStream(filepath, {flags: 'a'});
 
-var generateEntry = function(numOfVariations, newId) {
+var generateEntry = function(idCount) {
 
   var randomTitle = faker.commerce.productName();
   var randomDescription = faker.lorem.paragraph();
   var randomRating = Math.random() * 5;
   var variations = [];
   var imageCount = 1;
+  var numOfVariations = Math.ceil((Math.random() * 4));
 
   for (var i = 0; i < numOfVariations; i++) {
     var randomColor = faker.commerce.color(); // Fender Stratocaster
@@ -44,55 +44,46 @@ var generateEntry = function(numOfVariations, newId) {
       images: randomImages
     }
     variations.push(variation);
+
   }
 
   var entry = {
-    id: newId,
+    id: idCount,
     title: randomTitle,
     description: randomDescription,
     rating: randomRating.toFixed(2),
     variations : variations
   }
+
   return entry;
 }
 
-var createChunk = function(count) {
-  var sampleData = [];
-  for (var i = 0; i < count; i++) {
-    var numOfVariations = Math.ceil((Math.random() * 4));
+// add to file for each ("write" will create file if it doesnt exist)
+// refer to drain for when writes clog stream
+var idCount = 0;
+var start = Date.now();
+var i = 10000000;
+var write = function() {
+  let ok = true;
+  while (idCount < i && ok) {
+    // See if we should continue, or wait.
+    ok = stream.write(JSON.stringify(generateEntry(idCount)));
     idCount++;
-    var id = idCount;
-    sampleData.push(generateEntry(numOfVariations, id));
   }
 
-  return sampleData;
+  if (idCount < i) {
+    // Had to stop early!
+    // Write some more once it drains.
+    stream.once('drain', write);
+  } else {
+    stream.end();
+    console.log('Time to write (ms): ', Date.now() - start);
+    console.log(idCount, i);
+  }
 }
 
 
-stream.once(filepath, (fd) => {
-  stream.write(fd);
-  console.log(fd);
+write();
 
-  // Important to close the stream when you're ready
-  stream.end();
-});
-
-var seed = () => {
-  var start = Date.now();
-  var fileContent = createChunk(numOfDataPoints);
-  for (var i = 1; i<10; i++) {
-    fileContent.push(createChunk(numOfDataPoints));
-
-  }
-  var fileJSON = JSON.stringify(fileContent);
-  fs.writeFile(filepath, fileJSON, (err) => {
-    if (err) throw err;
-  })
-  stream.end();
-  console.log('Time to write: ', Date.now() - start);
-}
-
-
-seed();
-
-console.log("The file was succesfully saved!");
+module.exports = write;
+module.exports = generateEntry;
