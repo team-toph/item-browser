@@ -1,5 +1,5 @@
 const fs = require('fs');
-const promise = require('fs/promises')
+const promise = require('fs/promises');
 const db = require('./index.js');
 const Product = require('./model.js');
 // const data = require('../data.txt');
@@ -18,7 +18,7 @@ fs.readFile('data.txt', 'utf8', (err, data) => {
   }
 
 
-})
+});
 
 // var load = function() {
 //   const stream = fs.createReadStream('data.txt', {start: 0, end: 10} );

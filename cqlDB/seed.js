@@ -1,9 +1,8 @@
 const fs = require('fs');
 const faker = require('faker');
 
-const Product = require('./model.js');
 
-var filepath = "data.txt";
+var filepath = 'data.txt';
 // flag 'a': Open file for appending. The file is created if it does not exist.
 var stream = fs.createWriteStream(filepath, {flags: 'a'});
 
@@ -20,19 +19,19 @@ var generateEntry = function(idCount) {
     var randomColor = faker.commerce.color(); // Fender Stratocaster
     var randomCost = faker.commerce.price(); // 492.00
     var numOfImages = Math.ceil((Math.random() * 5));
-    var randomImages = [] // 4 random image urls
+    var randomImages = []; // 4 random image urls
 
     var createImage = function() {
       var url = 'http://picsum.photos/seed/';
-      var urlend='/846/1038';
+      var urlend ='/846/1038';
       var randomNumber = Math.floor(Math.random() * 1000);
-      return url+randomNumber+urlend;
-    }
+      return url + randomNumber + urlend;
+    };
 
     for (var j = 0; j < numOfImages; j++) {
       //var source = "https://picsum.photos/846/1038?random=" + imageCount;
       var source = createImage();
-      randomImages.push({src: source})
+      randomImages.push({src: source});
       imageCount++;
     }
 
@@ -40,7 +39,7 @@ var generateEntry = function(idCount) {
       color: randomColor,
       cost: randomCost,
       images: randomImages
-    }
+    };
     variations.push(variation);
 
   }
@@ -50,11 +49,11 @@ var generateEntry = function(idCount) {
     title: randomTitle,
     description: randomDescription,
     rating: randomRating.toFixed(2),
-    variations : variations
-  }
+    variations: variations
+  };
 
   return entry;
-}
+};
 
 // add to file for each ("write" will create file if it doesnt exist)
 // refer to drain for when writes clog stream
@@ -65,7 +64,7 @@ var write = function() {
   let ok = true;
   while (idCount < i && ok) {
     // See if we should continue, or wait.
-    ok = stream.write(JSON.stringify(generateEntry(idCount)) +'\r\n');
+    ok = stream.write(JSON.stringify(generateEntry(idCount)) + '\r\n');
     idCount++;
   }
 
@@ -78,7 +77,7 @@ var write = function() {
     console.log('Time to write (ms): ', Date.now() - start);
     console.log(idCount, i);
   }
-}
+};
 
 
 write();
