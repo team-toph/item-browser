@@ -1,8 +1,6 @@
 const fs = require('fs');
 const faker = require('faker');
 
-// use mongodb for generating script
-const db = require('./index.js');
 const Product = require('./model.js');
 
 var filepath = "data.txt";
@@ -25,8 +23,8 @@ var generateEntry = function(idCount) {
     var randomImages = [] // 4 random image urls
 
     var createImage = function() {
-      var url = 'http://picsum.photos/seed/'
-      var urlend='/846/1038'
+      var url = 'http://picsum.photos/seed/';
+      var urlend='/846/1038';
       var randomNumber = Math.floor(Math.random() * 1000);
       return url+randomNumber+urlend;
     }
@@ -85,5 +83,5 @@ var write = function() {
 
 write();
 
-module.exports = write;
-module.exports = generateEntry;
+module.exports.write = write;
+module.exports.generateEntry = generateEntry;
