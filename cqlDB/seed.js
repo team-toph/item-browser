@@ -67,7 +67,7 @@ var write = function() {
   let ok = true;
   while (idCount < i && ok) {
     // See if we should continue, or wait.
-    ok = stream.write(JSON.stringify(generateEntry(idCount)));
+    ok = stream.write(JSON.stringify(generateEntry(idCount)) +'\r\n');
     idCount++;
   }
 
