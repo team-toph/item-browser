@@ -9,6 +9,7 @@
     "test": "jest --detectOpenHandles",
     "db:seed": "node db/seed.js",
     "dbStarter:seed": "node dbStarter/seed.js",
+    "dbStarter:seedCSV": "node dbStarter/seedCSV.js",
     "pgLoad": "node dbStarter/pgLoad.js"
   },
   "repository": {

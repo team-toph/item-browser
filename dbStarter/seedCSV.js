@@ -2,7 +2,7 @@ const fs = require('fs');
 const faker = require('faker');
 
 
-var filepath = 'data.txt';
+var filepath = 'data.csv';
 // flag 'a': Open file for appending. The file is created if it does not exist.
 var stream = fs.createWriteStream(filepath, {flags: 'a'});
 
@@ -59,12 +59,19 @@ var generateEntry = function(idCount) {
 // refer to drain for when writes clog stream
 var idCount = 0;
 var start = Date.now();
-var i = 1000000;
+var i = 10000000;
 var write = function() {
   let ok = true;
+  //stream.write('id | title | description | rating | variations' + '\r\n');
   while (idCount < i && ok) {
     // See if we should continue, or wait.
-    ok = stream.write(JSON.stringify(generateEntry(idCount)) + '\r\n');
+    var newEntry = generateEntry(idCount);
+    var id = newEntry.id;
+    var title = JSON.stringify(newEntry.title);
+    var description = JSON.stringify(newEntry.description);
+    var rating = newEntry.rating;
+    var variations = JSON.stringify(newEntry.variations);
+    ok = stream.write( `${id}|${title}|${description}|${rating}|"${variations}"` + '\r\n');
     idCount++;
   }
 

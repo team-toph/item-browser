@@ -1,15 +1,16 @@
 const fs = require('fs');
-const readline = require('readline');
 const Sequelize = require('sequelize');
 const path = require('path');
 
 var start = Date.now();
-const stream = fs.createReadStream('data.txt', 'utf8');
+const stream = fs.createReadStream('data.csv', 'utf8');
+
 
 // connect to default
 var sequelize = new Sequelize('postgres', 'main', 'user', {
   host: 'localhost',
-  dialect: 'postgres'
+  dialect: 'postgres',
+  logging: false
 });
 
 sequelize
@@ -22,34 +23,21 @@ sequelize
   })
   .then(() => {
     return sequelize.query(`CREATE TABLE products (
-      id int,
+      id integer,
       title VARCHAR,
       description VARCHAR,
-      rating int,
+      rating real,
       variations VARCHAR
     );`);
   })
-  .then(() => {
-    return stream.on('data', (chunk) => {
-      var res = chunk.split('\r\n');
-      // remove new line at end of array
-      res.pop();
-      res.forEach( (entry) => {
-        var entry = JSON.parse(entry);
-        var variations = JSON.stringify(entry.variations);
-        return sequelize.query(`INSERT INTO products(id, title, description, rating, variations)
-        VALUES (${entry.id}, '${entry.title}', '${entry.description}', ${entry.rating}, '${variations}');`);
-      });
-    });
+  .then(()=> {
+    var pathName = path.resolve(__dirname, '../data.csv');
+    console.log(pathName);
+    return sequelize.query(`COPY products(id, title, description, rating, variations) FROM '${pathName}' (DELIMITER '|')`);
   })
   .then(() => {
-    return stream.on('end', function() {
-      console.log('end');
-    });
+    return console.log('Time to write (min): ', (Date.now() - start) / 60000);
   })
   .catch((err) => {
     console.error('Connection to Postgres products db failed:', err);
-  })
-  .finally(() => {
-    return console.log('Time to write (min): ', (Date.now() - start) / 60000);
   });
