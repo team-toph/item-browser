@@ -23,7 +23,7 @@ sequelize
   })
   .then(() => {
     return sequelize.query(`CREATE TABLE products (
-      id integer,
+      id integer PRIMARY KEY,
       title VARCHAR,
       description VARCHAR,
       rating real,
