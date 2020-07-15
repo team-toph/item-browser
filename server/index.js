@@ -4,8 +4,8 @@ const morgan = require('morgan');
 const path = require('path');
 const bodyParser = require('body-parser');
 const app = express();
-const Product = require('sequelize');
 const port = 3001;
+const client = require('../db/index.js');
 
 app.use(cors());
 app.use(morgan('dev'));
@@ -15,10 +15,14 @@ app.use(bodyParser.json());
 
 app.get('/api/products', (req, res) => {
   const id = req.query.id;
-  Product.find({id: id})
-    .then((product) => {
-      // need to reconfigure product.variations (parse)
-      res.status(200).send(product);
+  console.log(id);
+  client.query(`select * from products where id=${id}`)
+    .then((entry) => {
+      entry = entry[0][0];
+      entry.title = entry.title.slice(1, -1);
+      entry.description = entry.description.slice(1, -1);
+      entry.variations = JSON.parse(entry.variations.slice(1, -1));
+      res.status(200).send(entry);
     });
 });
 

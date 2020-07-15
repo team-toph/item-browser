@@ -1,8 +1,45 @@
-const mongoose = require('mongoose');
-const db = mongoose.connect('mongodb://localhost/products');
-// db.on('error', console.error('connection error'));
-// db.on('open', function() {
-//   console.log('Successfully connected');
-// })
+const fs = require('fs');
+const Sequelize = require('sequelize');
+const path = require('path');
 
-module.exports = db;
+var start = Date.now();
+const stream = fs.createReadStream('data.csv', 'utf8');
+
+
+// connect to default
+var sequelize = new Sequelize('postgres', 'main', 'user', {
+  host: 'localhost',
+  dialect: 'postgres',
+  logging: false
+});
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connected');
+  })
+  // .then(() => {
+  //   return sequelize.query('DROP TABLE IF EXISTS products');
+  // })
+  // .then(() => {
+  //   return sequelize.query(`CREATE TABLE products (
+  //     id integer PRIMARY KEY,
+  //     title VARCHAR,
+  //     description VARCHAR,
+  //     rating real,
+  //     variations VARCHAR
+  //   );`);
+  // })
+  // .then(()=> {
+  //   var pathName = path.resolve(__dirname, '../data.csv');
+  //   console.log(pathName);
+  //   return sequelize.query(`COPY products(id, title, description, rating, variations) FROM '${pathName}' (DELIMITER '|')`);
+  // })
+  // .then(() => {
+  //   return console.log('Time to write (min): ', (Date.now() - start) / 60000);
+  // })
+  .catch((err) => {
+    console.error('Connection to Postgres products db failed:', err);
+  });
+
+module.exports = sequelize;
