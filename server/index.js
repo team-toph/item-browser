@@ -17,6 +17,7 @@ app.get('/api/products', (req, res) => {
   const id = req.query.id;
   Product.find({id: id})
     .then((product) => {
+      // need to reconfigure product.variations (parse)
       res.status(200).send(product);
     });
 });
