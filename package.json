@@ -8,8 +8,10 @@
     "build": "webpack -d --watch",
     "test": "jest --detectOpenHandles",
     "db:seed": "node db/seed.js",
-    "db:cql": "node cqlDB/seed.js",
-    "load": "node cqlDB/load.js"
+    "dbStarter:seed": "node dbStarter/seed.js",
+    "dbStarter:seedCSV": "node dbStarter/seedCSV.js",
+    "pgLoad": "node dbStarter/pgLoad.js",
+    "casLoad": "node dbStarter/casLoad.js"
   },
   "repository": {
     "type": "git",
@@ -50,10 +52,12 @@
     "faker": "^4.1.0",
     "mongoose": "^4.13.20",
     "nodemon": "^2.0.4",
+    "pg": "^8.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-modal-image": "^2.5.0",
     "react-star-ratings": "^2.3.0",
+    "sequelize": "^6.3.3",
     "styled-components": "^5.1.1"
   }
 }

@@ -2,7 +2,7 @@ const fs = require('fs');
 const faker = require('faker');
 
 
-var filepath = 'data.txt';
+var filepath = 'data.csv';
 // flag 'a': Open file for appending. The file is created if it does not exist.
 var stream = fs.createWriteStream(filepath, {flags: 'a'});
 
@@ -23,7 +23,7 @@ var generateEntry = function(idCount) {
 
     var createImage = function() {
       var url = 'http://picsum.photos/seed/';
-      var urlend ='/846/1038';
+      var urlend = '/846/1038';
       var randomNumber = Math.floor(Math.random() * 1000);
       return url + randomNumber + urlend;
     };
@@ -62,9 +62,16 @@ var start = Date.now();
 var i = 10000000;
 var write = function() {
   let ok = true;
+  //stream.write('id | title | description | rating | variations' + '\r\n');
   while (idCount < i && ok) {
     // See if we should continue, or wait.
-    ok = stream.write(JSON.stringify(generateEntry(idCount)) + '\r\n');
+    var newEntry = generateEntry(idCount);
+    var id = newEntry.id;
+    var title = JSON.stringify(newEntry.title);
+    var description = JSON.stringify(newEntry.description);
+    var rating = newEntry.rating;
+    var variations = JSON.stringify(newEntry.variations);
+    ok = stream.write( `${id}|${title}|${description}|${rating}|"${variations}"` + '\r\n');
     idCount++;
   }
 
@@ -74,7 +81,7 @@ var write = function() {
     stream.once('drain', write);
   } else {
     stream.end();
-    console.log('Time to write (ms): ', Date.now() - start);
+    console.log('Time to write (min): ', (Date.now() - start) / 1000 / 60);
     console.log(idCount, i);
   }
 };
