@@ -7,11 +7,10 @@
     "start": "nodemon ./server/index.js",
     "build": "webpack -d --watch",
     "test": "jest --detectOpenHandles",
-    "db:seed": "node db/seed.js",
-    "dbStarter:seed": "node dbStarter/seed.js",
-    "dbStarter:seedCSV": "node dbStarter/seedCSV.js",
-    "pgLoad": "node dbStarter/pgLoad.js",
-    "casLoad": "node dbStarter/casLoad.js"
+    "dbOld:seed": "node db_old/seed.js",
+    "db:seedCSV": "node db/seedCSV.js",
+    "pgLoad": "node db/index.js",
+    "casLoad": "node db/casLoad.js"
   },
   "repository": {
     "type": "git",

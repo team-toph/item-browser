@@ -52,7 +52,7 @@ class ImageBrowser extends React.Component {
       currentVariantsImages: [],
       imageIndex: 0,
       currentImageUrl: ''
-    }
+    };
   }
 
   componentDidMount() {
@@ -61,31 +61,32 @@ class ImageBrowser extends React.Component {
     if (!params.id) {
       alert('No product id is present in the url, add an id between 1 and 100 as a query to display a product. example: localhost:3001/?id=4');
     } else {
-      const path = 'http://localhost:3001/api/products?id=' + params.id
+      const path = 'http://localhost:3001/api/products?id=' + params.id;
       axios.get(path)
-      .then((response) => {
-        // handle success
-        //console.log(response.data[0]);
-        const data = response.data[0];
-        this.setState({
-          product: data,
-          variations: data.variations,
-          currentVariant: data.variations[0],
-          variantIndex: 0,
-          currentVariantsImages: data.variations[0].images,
-          currentImageUrl: data.variations[0].images[this.state.imageIndex].src
+        .then((data) => {
+          // handle success
+          //console.log(response.data[0]);
+          // const data = response.data[0];
+          data = data.data;
+          this.setState({
+            product: data,
+            variations: data.variations,
+            currentVariant: data.variations[0],
+            variantIndex: 0,
+            currentVariantsImages: data.variations[0].images,
+            currentImageUrl: data.variations[0].images[this.state.imageIndex].src
+          });
         })
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        });
     }
   }
 
   getUrlParams() {
     const url = window.location.href;
-    console.log("The URL of this page is: " + url);
+    console.log('The URL of this page is: ' + url);
     var params = {};
     var parser = document.createElement('a');
     parser.href = url;
@@ -105,7 +106,7 @@ class ImageBrowser extends React.Component {
     this.setState({
       imageIndex: index,
       currentImageUrl: this.state.currentVariantsImages[index].src
-    })
+    });
   }
 
   onStyleClick(e) {
@@ -118,7 +119,7 @@ class ImageBrowser extends React.Component {
       currentVariant: this.state.product.variations[index],
       currentVariantsImages: this.state.product.variations[index].images,
       imageIndex: 0,
-    })
+    });
     this.setNewImageUrlAfterVariationSwitch();
   }
 
@@ -129,7 +130,7 @@ class ImageBrowser extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <Wrapper>
         <TitleContainer>
           <Title
@@ -166,7 +167,7 @@ class ImageBrowser extends React.Component {
           <Cart cost={this.state.currentVariant.cost}/>
         </Three>
       </Wrapper>
-    )
+    );
   }
 }
 
