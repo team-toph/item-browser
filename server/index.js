@@ -1,3 +1,4 @@
+require('newrelic');
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -32,40 +33,52 @@ app.get('/api/products', (req, res) => {
 
 app.post('/api/products', (req, res) => {
   const newEntry = req.body;
+  console.log('newEntry: ', newEntry.variations);
+  var id = newEntry.id;
+  console.log(id);
+  var title = JSON.stringify(newEntry.title);
+  var description = JSON.stringify(newEntry.description);
+  var rating = newEntry.rating;
+  var variations = JSON.stringify(newEntry.variations);
 
-  Product.create(newEntry, err => {
-    if (err) {
-      return res.status(500).send(err);
-    } else {
-      return res.status(200).send(req.body);
-    }
-  });
+
+
+  client.query(`insert into products(id, title, description, rating, variations) values (${id}, ${title}, ${description}, ${rating}, '${variations}')`)
+    .then((res) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+        return res.status(200).send(req.body);
+      }
+    });
+
 });
 
 app.put('/api/products', (req, res) => {
   const id = req.query.id;
-  const update = req.body;
+  var title = JSON.stringify(newEntry.title);
 
-  Product.update({id: id}, update, err => {
-    if (err) {
-      return res.status(500).send(err);
-    } else {
-      return res.status(200).send(req.body);
-    }
-  });
+  client.query(`update products set title=${title} where id=${id}`)
+    .then((res) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+        return res.status(200).send(req.body);
+      }
+    });
 });
 
 app.delete('/api/products', (req, res) => {
   const id = req.query.id;
-  console.log(id);
 
-  Product.deleteOne({id: id}, err => {
-    if (err) {
-      return res.status(500).send(err);
-    } else {
-      return res.status(200).send(req.body);
-    }
-  });
+  client.query(`delete from products where id=${id}`)
+    .then((res) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+        return res.status(200).send(req.body);
+      }
+    });
 });
 
 var server = app.listen(port, () => { console.log(`Listening at http://localhost:${port}`); });
