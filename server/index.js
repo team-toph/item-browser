@@ -32,26 +32,29 @@ app.get('/api/products', (req, res) => {
 /////////////////////////////////////
 
 app.post('/api/products', (req, res) => {
-  const newEntry = req.body;
-  console.log('newEntry: ', newEntry.variations);
-  var id = newEntry.id;
+
+  var id = req.body.id;
+  var title = JSON.stringify(req.body.title);
+  var description = JSON.stringify(req.body.description);
+  var rating = req.body.rating;
+  var variations = JSON.stringify(req.body.variations);
+
   console.log(id);
-  var title = JSON.stringify(newEntry.title);
-  var description = JSON.stringify(newEntry.description);
-  var rating = newEntry.rating;
-  var variations = JSON.stringify(newEntry.variations);
+  console.log(title);
+  console.log(description);
+  console.log(rating);
+  console.log(variations);
 
-
-
-  client.query(`insert into products(id, title, description, rating, variations) values (${id}, ${title}, ${description}, ${rating}, '${variations}')`)
-    .then((res) => {
-      if (err) {
-        return res.status(500).send(err);
-      } else {
-        return res.status(200).send(req.body);
-      }
+  var query =
+    `INSERT INTO products (id,title,description,rating,variations) VALUES (${id},'${title}','${description}',${rating},'${variations}') RETURNING id`;
+  client
+    .query(query)
+    .then((entry) => {
+      res.status(200).send(entry);
+    })
+    .catch((err) => {
+      console.error('Post to Postgres products db failed:', err);
     });
-
 });
 
 app.put('/api/products', (req, res) => {
@@ -59,12 +62,11 @@ app.put('/api/products', (req, res) => {
   var title = JSON.stringify(newEntry.title);
 
   client.query(`update products set title=${title} where id=${id}`)
-    .then((res) => {
-      if (err) {
-        return res.status(500).send(err);
-      } else {
-        return res.status(200).send(req.body);
-      }
+    .then((entry) => {
+      res.status(200).send(entry);
+    })
+    .catch((err) => {
+      console.error('Put to Postgres products db failed:', err);
     });
 });
 
@@ -72,12 +74,11 @@ app.delete('/api/products', (req, res) => {
   const id = req.query.id;
 
   client.query(`delete from products where id=${id}`)
-    .then((res) => {
-      if (err) {
-        return res.status(500).send(err);
-      } else {
-        return res.status(200).send(req.body);
-      }
+    .then((entry) => {
+      res.status(200).send(entry);
+    })
+    .catch((err) => {
+      console.error('Delete to Postgres products db failed:', err);
     });
 });
 
