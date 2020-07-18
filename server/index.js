@@ -14,7 +14,7 @@ app.use(express.static(path.join(__dirname, '/../dist')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.get('/api/products', (req, res) => {
+app.get('/api/products', (req, res, next) => {
   const id = req.query.id;
   console.log(id);
   client.query(`select * from products where id=${id}`)
@@ -24,26 +24,21 @@ app.get('/api/products', (req, res) => {
       entry.description = entry.description.slice(1, -1);
       entry.variations = JSON.parse(entry.variations.slice(1, -1));
       res.status(200).send(entry);
-    });
+    })
+    .catch(next);
 });
 
 /////////////////////////////////////
 // Set up these CRUD apis to route to current db, but create the 10M entries?
 /////////////////////////////////////
 
-app.post('/api/products', (req, res) => {
+app.post('/api/products', (req, res, next) => {
 
   var id = req.body.id;
   var title = JSON.stringify(req.body.title);
   var description = JSON.stringify(req.body.description);
   var rating = req.body.rating;
   var variations = JSON.stringify(req.body.variations);
-
-  console.log(id);
-  console.log(title);
-  console.log(description);
-  console.log(rating);
-  console.log(variations);
 
   var query =
     `INSERT INTO products (id,title,description,rating,variations) VALUES (${id},'${title}','${description}',${rating},'${variations}') RETURNING id`;
@@ -52,9 +47,7 @@ app.post('/api/products', (req, res) => {
     .then((entry) => {
       res.status(200).send(entry);
     })
-    .catch((err) => {
-      console.error('Post to Postgres products db failed:', err);
-    });
+    .catch(next);
 });
 
 app.put('/api/products', (req, res) => {

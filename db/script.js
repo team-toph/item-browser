@@ -4,7 +4,7 @@ import { sleep, check } from 'k6';
 
 export default function() {
   var arr = [];
-  for (var id = 1000; id < 1000000; id++) {
+  for (var id = 0; id < 1000000; id++) {
     let req = {
       method: 'GET',
       url: `http://localhost:3001/?id=${id}`,
