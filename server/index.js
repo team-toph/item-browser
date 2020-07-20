@@ -6,7 +6,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const app = express();
 const port = 3001;
-const client = require('../db/index.js');
+const client = require('./dbClient.js');
 
 app.use(cors());
 app.use(morgan('dev'));
