@@ -7,7 +7,7 @@ export default function() {
   for (var id = 0; id < 1000000; id++) {
     let req = {
       method: 'GET',
-      url: `http://localhost:3001/?id=${id}`,
+      url: `http://18.191.148.100:3001/?id=${id}`,
     };
     arr.push(req);
   }

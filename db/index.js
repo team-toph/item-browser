@@ -8,7 +8,7 @@ const stream = fs.createReadStream('data.csv', 'utf8');
 
 // connect to default
 var sequelize = new Sequelize('postgres', 'main', 'user', {
-  host: 'localhost',
+  host: '18.191.148.100',
   dialect: 'postgres',
   logging: false
 });

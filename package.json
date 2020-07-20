@@ -6,6 +6,7 @@
   "scripts": {
     "start": "nodemon ./server/index.js",
     "build": "webpack -d --watch",
+    "buildBundle": "webpack -d",
     "test": "jest --detectOpenHandles",
     "dbOld:seed": "node db_old/seed.js",
     "db:seedCSV": "node db/seedCSV.js",

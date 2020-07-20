@@ -1,7 +1,7 @@
 const server = require("../server/index.js");
 const axios = require('axios');
 
-const api = axios.create({ baseURL: 'http://localhost:3000'});
+const api = axios.create({ baseURL: 'http://18.191.148.100:3000'});
 
 
 afterAll(() => {

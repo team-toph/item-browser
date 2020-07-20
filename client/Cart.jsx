@@ -65,7 +65,7 @@ const FinancingBlurb = styled.span`
 
 const CardImageContainer = styled.div`
   background-position: center;
-  background-image: url(http://localhost:3001/assets/gearCard.png);
+  background-image: url(http://18.191.148.100:3001/assets/gearCard.png);
   height: 30px;
   width: 40px;
   grid-column: 1;
