@@ -28,6 +28,12 @@ app.get('/api/products', (req, res, next) => {
     .catch(next);
 });
 
+app.get('/loaderio-23d991f1462d837dd36bdcafd48aabba', (req, res) => {
+  var loc = 'loaderio-23d991f1462d837dd36bdcafd48aabba.txt';
+  var loader = path.join(__dirname, loc);
+  res.status(200).send(loader);
+});
+
 /////////////////////////////////////
 // Set up these CRUD apis to route to current db, but create the 10M entries?
 /////////////////////////////////////
