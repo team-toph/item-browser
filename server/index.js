@@ -30,7 +30,7 @@ app.get('/api/products', (req, res, next) => {
 
 app.get('/loaderio-23d991f1462d837dd36bdcafd48aabba', (req, res) => {
   var tok = 'loaderio-23d991f1462d837dd36bdcafd48aabba';
-  var loader = path.join(__dirname, loc);
+  //var loader = path.join(__dirname, loc);
   res.status(200).send(tok);
 });
 
