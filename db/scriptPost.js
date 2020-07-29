@@ -7,7 +7,7 @@ export default function() {
   for (var id = 10000000; id < 10001000; id++) {
     let req = {
       method: 'POST',
-      url: `http://18.191.148.100:3001/api/products/?id=${id}`,
+      url: `http://18.221.79.58:3001/api/products/?id=${id}`,
       body: {
         "id": id,
         "title": "Sleek Concrete Mouse",

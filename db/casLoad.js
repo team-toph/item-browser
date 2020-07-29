@@ -3,7 +3,7 @@ const path = require('path');
 const cassandra = require('cassandra-driver');
 const authProvider = new cassandra.auth.PlainTextAuthProvider('main', 'user');
 
-var contactPoints = ['18.191.148.100'];
+var contactPoints = ['18.221.79.58'];
 const client = new cassandra.Client({
   contactPoints: contactPoints,
   localDataCenter: 'datacenter1',
