@@ -81,6 +81,6 @@ app.delete('/api/products', (req, res) => {
     });
 });
 
-var server = app.listen(port, () => { console.log(`Listening at http://18.191.148.100:${port}`); });
+var server = app.listen(port, () => { console.log(`Listening at http://18.221.79.58:${port}`); });
 
 module.exports = server;
