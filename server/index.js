@@ -6,7 +6,18 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const app = express();
 const port = 3001;
+const ipPath = 'localhost';
 const client = require('./dbClient.js');
+const redis = require('redis');
+
+const redisClient = redis.createClient({
+  port: 6379,
+  host: '127.0.0.1'
+});
+
+redisClient.on('error', (err) => {
+  console.log('Error ' + err);
+});
 
 app.use(cors());
 app.use(morgan('dev'));
@@ -16,27 +27,34 @@ app.use(bodyParser.json());
 
 app.get('/api/products', (req, res, next) => {
   const id = req.query.id;
-  console.log(id);
-  client.query(`select * from products where id=${id}`)
-    .then((entry) => {
-      entry = entry[0][0];
-      entry.title = entry.title.slice(1, -1);
-      entry.description = entry.description.slice(1, -1);
-      entry.variations = JSON.parse(entry.variations.slice(1, -1));
-      res.status(200).send(entry);
-    })
-    .catch(next);
+  const redisQuery = (req.query.query);
+  redisClient.get(`id:${redisQuery}`, (result) => {
+    if (result) {
+      const resultJSON = JSON.parse(result);
+      return res.status(200).json(resultJSON);
+    } else {
+      return client.query(`select * from products where id=${id}`)
+        .then((entry) => {
+          entry = entry[0][0];
+          entry.title = entry.title.slice(1, -1);
+          entry.description = entry.description.slice(1, -1);
+          entry.variations = JSON.parse(entry.variations.slice(1, -1));
+          res.status(200).send(entry);
+          const responseJSON = entry;
+          console.log(entry);
+          redisClient.setex(`id:${redisQuery}`, 3600, JSON.stringify({ source: 'Redis Cache', ...responseJSON}));
+        })
+        .then(() => {
+          res.status(200).json({ source: 'SDC Postgres', ...responseJSON, })
+        });
+    }
+  })
 });
 
-app.get('/loaderio-23d991f1462d837dd36bdcafd48aabba', (req, res) => {
-  var tok = 'loaderio-23d991f1462d837dd36bdcafd48aabba';
-  //var loader = path.join(__dirname, loc);
+app.get('/loaderio-2cbad74acad0c5feaab64f03ceaaf032', (req, res) => {
+  var tok = 'loaderio-2cbad74acad0c5feaab64f03ceaaf032';
   res.status(200).send(tok);
 });
-
-/////////////////////////////////////
-// Set up these CRUD apis to route to current db, but create the 10M entries?
-/////////////////////////////////////
 
 app.post('/api/products', (req, res, next) => {
 
@@ -81,6 +99,6 @@ app.delete('/api/products', (req, res) => {
     });
 });
 
-var server = app.listen(port, () => { console.log(`Listening at http://18.221.79.58:${port}`); });
+var server = app.listen(port, () => { console.log(`Listening at http://${ipPath}:${port}`); });
 
 module.exports = server;

@@ -7,6 +7,8 @@ import Title from './Title.jsx';
 import StyleSelector from './StyleSelector.jsx';
 import Cart from './Cart.jsx';
 
+const ipPath = 'localhost';
+
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 500px 40% 300px;
@@ -41,6 +43,7 @@ const Stock = styled.h4`
   color: green;
 `;
 
+
 class ImageBrowser extends React.Component {
   constructor() {
     super();
@@ -59,9 +62,9 @@ class ImageBrowser extends React.Component {
     // Make a request for a user with a given ID
     const params = this.getUrlParams();
     if (!params.id) {
-      alert('No product id is present in the url, add an id between 1 and 100 as a query to display a product. example: 18.221.79.58:3001/?id=4');
+      alert(`No product id is present in the url, add an id between 1 and 100 as a query to display a product. example: ${ipPath}:3001/?id=4`);
     } else {
-      const path = 'http://18.221.79.58:3001/api/products?id=' + params.id;
+      const path = `http://${ipPath}:3001/api/products?id=` + params.id;
       axios.get(path)
         .then((data) => {
           // handle success

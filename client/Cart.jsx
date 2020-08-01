@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import QuantitySelector from './QuantitySelector.jsx';
 
+const ipPath = 'localhost';
 
 const QuestionsContainer = styled.div`
   border: 1px solid lightgray;
@@ -65,7 +66,7 @@ const FinancingBlurb = styled.span`
 
 const CardImageContainer = styled.div`
   background-position: center;
-  background-image: url(http://18.221.79.58:3001/assets/gearCard.png);
+  background-image: url(http://${ipPath}:3001/assets/gearCard.png);
   height: 30px;
   width: 40px;
   grid-column: 1;

@@ -14,15 +14,6 @@ var start = Date.now();
 var pathName = '../data.csv';
 console.log(pathName);
 
-
-// Execute the queries
-// Below is commented out to avoid linter errors
-// var q1 = `DROP KEYSPACE IF EXISTS products`;
-// var q2 = `CREATE KEYSPACE products WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1'} AND DURABLE_WRITES = 'true'`;
-// var q3 = `USE products`;
-// var q4 = `CREATE TABLE products (id int PRIMARY KEY,title text,description text,rating float,variations text)`;
-// var q5 = `COPY products.products (id,title,description,rating,variations) FROM '${pathName}' `;
-
 client.execute(q1)
   .then(() => {
     return client.execute(q2);

@@ -1,8 +1,9 @@
 const Sequelize = require('sequelize');
 
-// connect to default
+const ipPath = 'localhost';
+
 var sequelize = new Sequelize('postgres', 'main', 'user', {
-  host: '18.191.85.22',
+  host: ipPath,
   dialect: 'postgres',
   logging: false
 });

@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const ipPath = 'localhost';
+
 const Form = styled.form`
   grid-column: 1
 `;
@@ -41,14 +43,14 @@ const UpArrow = styled.button`
   width: 16px;
   height: 20px;
   background-position: center;
-  background-image: url(http://18.221.79.58:3001/assets/upArrow.png);
+  background-image: url(http://${ipPath}:3001/assets/upArrow.png);
 `;
 
 const DownArrow = styled.button`
   width: 16px;
   height: 20px;
   background-position: center;
-  background-image: url(http://18.221.79.58:3001/assets/downArrow.png);
+  background-image: url(http://${ipPath}:3001/assets/downArrow.png);
 `;
 
 class QuantitySelector extends React.Component {

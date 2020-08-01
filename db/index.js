@@ -5,10 +5,10 @@ const path = require('path');
 var start = Date.now();
 const stream = fs.createReadStream('data.csv', 'utf8');
 
+const ipPath = 'localhost';
 
-// connect to default
 var sequelize = new Sequelize('postgres', 'main', 'user', {
-  host: '18.224.151.61',
+  host: ipPath,
   dialect: 'postgres',
   logging: false
 });
