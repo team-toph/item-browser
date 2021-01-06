@@ -43,7 +43,7 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "babel-jest": "^26.1.0",
     "cassandra-driver": "^4.5.2",
     "cors": "^2.8.5",
