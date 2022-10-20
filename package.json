@@ -50,7 +50,7 @@
     "express": "^4.17.1",
     "express-cassandra": "^2.3.2",
     "faker": "^4.1.0",
-    "mongoose": "^4.13.20",
+    "mongoose": "^4.13.21",
     "newrelic": "^6.11.0",
     "nodemon": "^2.0.4",
     "pg": "^8.3.0",
